@@ -2,18 +2,21 @@ package com.example.userservice.service;
 
 import com.example.userservice.entity.User;
 import com.example.userservice.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User createUser(User user) {
@@ -26,6 +29,14 @@ public class UserService {
             throw new RuntimeException("Username already exists");
         }
 
+        if (user.getPassword() == null || user.getPassword().isBlank()) {
+            throw new RuntimeException("Password is required");
+        }
+
+        user.setPassword(
+                passwordEncoder.encode(user.getPassword())
+        );
+
         return userRepository.save(user);
     }
 
@@ -35,35 +46,41 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+                .orElseThrow(() ->
+                        new RuntimeException("User not found with id: " + id));
     }
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+                .orElseThrow(() ->
+                        new RuntimeException("User not found with email: " + email));
     }
 
     public User updateUser(Long id, User updatedUser) {
 
         User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+                .orElseThrow(() ->
+                        new RuntimeException("User not found with id: " + id));
 
         existingUser.setUsername(updatedUser.getUsername());
         existingUser.setEmail(updatedUser.getEmail());
 
         if (updatedUser.getPassword() != null &&
                 !updatedUser.getPassword().isBlank()) {
-            existingUser.setPassword(updatedUser.getPassword());
+
+            existingUser.setPassword(
+                    passwordEncoder.encode(updatedUser.getPassword())
+            );
         }
 
         if (updatedUser.getRole() != null &&
                 !updatedUser.getRole().isBlank()) {
+
             existingUser.setRole(updatedUser.getRole());
         }
 
         return userRepository.save(existingUser);
     }
-
 
     public void deleteUser(Long id) {
 
