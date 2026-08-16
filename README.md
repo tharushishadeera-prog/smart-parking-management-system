@@ -37,6 +37,9 @@ The system consists of the following services:
                                  ▼
                             MySQL Database
 ```
+## 📸 Eureka Server Dashboard
+
+![Eureka Dashboard](docs/screenshots/eureka-dashboard.png)
 
 ## 🧩 Microservices
 
