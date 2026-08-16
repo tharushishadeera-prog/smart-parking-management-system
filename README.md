@@ -6,7 +6,7 @@ A backend-based **Smart Parking Management System** developed using **Spring Boo
 
 The Smart Parking Management System is designed to manage users, vehicles, parking spaces, and payments through a distributed microservices architecture.
 
-The project uses **Spring Boot, Spring Data JPA, MySQL, and Netflix Eureka Service Discovery** to provide a scalable and modular backend system.
+The project uses **Spring Boot, Spring Data JPA, MySQL, and  Eureka Service Discovery** to provide a scalable and modular backend system.
 
 ## 🏗️ Architecture
 
@@ -162,7 +162,7 @@ http://localhost:8761
 | Hibernate            | ORM                                |
 | MySQL                | Relational Database                |
 | Spring Cloud         | Microservices Infrastructure       |
-| Netflix Eureka       | Service Discovery                  |
+| Eureka       | Service Discovery                  |
 | Maven                | Dependency Management & Build Tool |
 | Spring Boot Actuator | Application Monitoring             |
 | Jakarta Validation   | Data Validation                    |
@@ -493,4 +493,4 @@ Software Engineering Undergraduate
 
 **Smart Parking Management System**
 
-Built using **Java, Spring Boot, Spring Cloud, MySQL, JPA, Hibernate, and Netflix Eureka**.
+Built using **Java, Spring Boot, Spring Cloud, MySQL, JPA, Hibernate, and  Eureka**.
